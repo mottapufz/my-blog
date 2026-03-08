@@ -1,0 +1,31 @@
+<body style="background: #000; color: #fff; font-family: monospace;">
+    <h1>Create New Blog Post</h1>
+    <form id="post-form">
+        <input type="text" id="title" placeholder="Blog Title" required style="width: 100%; margin-bottom: 10px;">
+        <textarea id="content" placeholder="Write your blog here..." rows="10" style="width: 100%; margin-bottom: 10px;"></textarea>
+        <button type="submit">Publish Blog</button>
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const supabaseUrl = 'https://ytyafrywokjliplflcmt.supabase.co'
+        const supabaseKey = 'sb_publishable_qCgSZovSd-bO6CYpOPk_vg_p0xc92PZ'
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey)
+
+        document.getElementById('post-form').onsubmit = async (e) => {
+            e.preventDefault();
+            const title = document.getElementById('title').value;
+            const content = document.getElementById('content').value;
+
+            const { error } = await supabase
+                .from('posts')
+                .insert([{ title, content }]);
+
+            if (error) alert('Error: ' + error.message);
+            else {
+                alert('Published!');
+                window.location.href = 'index.html'; // Go see the blog
+            }
+        };
+    </script>
+</body>

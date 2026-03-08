@@ -1,27 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - New Post</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            /* Brings the chaos */
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive; 
+            padding: 1.5rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        input, textarea {
+            background: #111;
+            color: #fff;
+            border: 1px solid #fff;
+            padding: 12px;
+            margin-bottom: 15px;
+            width: 100%;
+            box-sizing: border-box;
+            /* Forces the input boxes to inherit the Comic Sans font */
+            font-family: inherit; 
+        }
+
+        button {
+            background: #fff;
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+            font-family: inherit;
+        }
+
+        @media (min-width: 600px) {
+            body { padding: 3rem; }
+        }
+    </style>
 </head>
-<body style="background: #000; color: #fff; font-family: monospace; padding: 2rem;">
+<body>
     <h1>Create New Blog Post</h1>
     <form id="post-form">
-        <input type="text" id="title" placeholder="Blog Title" required 
-               style="width: 100%; margin-bottom: 10px; background: #111; color: #fff; border: 1px solid #fff; padding: 10px;">
-        
-        <textarea id="content" placeholder="Write your blog here..." rows="10" required 
-                  style="width: 100%; margin-bottom: 10px; background: #111; color: #fff; border: 1px solid #fff; padding: 10px; font-family: inherit;"></textarea>
-        
-        <input type="password" id="admin-password" placeholder="Admin Password" required 
-               style="width: 100%; margin-bottom: 20px; background: #111; color: #fff; border: 1px solid #fff; padding: 10px;">
+        <input type="text" id="title" placeholder="Blog Title" required>
+        <textarea id="content" placeholder="Write your blog here..." rows="10" required></textarea>
+        <input type="password" id="admin-password" placeholder="Admin Password" required>
 
-        <button type="submit" style="background: #fff; color: #000; border: none; padding: 10px 20px; cursor: pointer; font-weight: bold;">
-            Publish Blog
-        </button>
+        <button type="submit">Publish Blog</button>
     </form>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
     <script>
         const supabaseUrl = 'https://ytyafrywokjliplflcmt.supabase.co';
         const supabaseKey = 'sb_publishable_qCgSZovSd-bO6CYpOPk_vg_p0xc92PZ';
@@ -46,7 +78,6 @@
                 alert('Posting Failed: ' + error.message);
             } else {
                 alert('Published successfully!');
-                // Redirects to the index.html in the exact same folder
                 window.location.href = 'index.html'; 
             }
         };

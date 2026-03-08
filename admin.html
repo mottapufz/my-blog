@@ -19,7 +19,11 @@
 
             const { error } = await supabase
                 .from('posts')
-                .insert([{ title, content }]);
+                .insert([{ 
+                    title: title, 
+                    content: content, 
+                    secret_key: 'mpz@blog19' // This must match the Policy!
+                }]);
 
             if (error) alert('Error: ' + error.message);
             else {

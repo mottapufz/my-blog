@@ -46,8 +46,7 @@
                 alert('Posting Failed: ' + error.message);
             } else {
                 alert('Published successfully!');
-                // If this file is inside an 'admin' folder, use '../index.html'
-                // If it is in the same folder as index.html, use 'index.html'
+                // Redirects to the index.html in the exact same folder
                 window.location.href = 'index.html'; 
             }
         };

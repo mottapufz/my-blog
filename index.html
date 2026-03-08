@@ -1,25 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mottapufz blog</title>
     <style>
         body {
             background-color: #000;
             color: #fff;
-            /* Monospace for that terminal feel, Comic Sans for the chaos */
             font-family: 'Courier New', Courier, monospace; 
-            padding: 2rem;
+            padding: 1.5rem; /* Base padding for mobile */
             line-height: 1.6;
+            max-width: 800px; /* Stops it from stretching infinitely on desktop */
+            margin: 0 auto; /* Centers the whole blog column */
         }
-        .post { border-bottom: 1px solid #333; padding-bottom: 2rem; margin-bottom: 2rem; }
+        
+        .post { 
+            border-bottom: 1px solid #333; 
+            padding-bottom: 2rem; 
+            margin-bottom: 2rem; 
+        }
+
+        /* Form Fields: Padded, box-sized, and restricted in width */
         input, textarea {
             background: #111;
             border: 1px solid #fff;
             color: #fff;
             font-family: inherit;
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            padding: 12px; /* Added padding inside the text boxes */
             width: 100%;
+            max-width: 350px; /* Keeps inputs from being full screen */
+            box-sizing: border-box; /* Ensures padding doesn't break the width */
         }
+
+        /* Let the comment box be slightly wider than the inputs */
+        textarea {
+            max-width: 500px; 
+            resize: vertical; /* Lets users drag to make it taller, but not wider */
+        }
+
         button {
             background: #fff;
             color: #000;
@@ -28,10 +48,15 @@
             cursor: pointer;
             font-weight: bold;
         }
+
+        /* Adds extra padding on larger screens */
+        @media (min-width: 600px) {
+            body { padding: 3rem; }
+        }
     </style>
 </head>
 <body>
-    <h1>My Minimalist Blog</h1>
+    <h1>mottapufz blog</h1>
     <div id="blog-posts"></div>
     
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>

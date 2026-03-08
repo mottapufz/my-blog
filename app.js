@@ -1,17 +1,17 @@
 const supabaseUrl = 'https://ytyafrywokjliplflcmt.supabase.co';
 const supabaseKey = 'sb_publishable_qCgSZovSd-bO6CYpOPk_vg_p0xc92PZ';
 
-// Renamed from 'supabase' to 'db' to avoid the shadowing error
-const db = supabase.createClient(supabaseUrl, supabaseKey);
+// Renamed to 'sb' to avoid the global 'supabase' collision
+const sb = supabase.createClient(supabaseUrl, supabaseKey);
 
 async function fetchPosts() {
-    const { data: posts, error } = await db
+    const { data: posts, error } = await sb
         .from('posts')
         .select('*, comments(*)')
         .order('created_at', { ascending: false });
 
     if (error) {
-        console.error("Error fetching posts:", error);
+        console.error("Fetch Error:", error);
         return;
     }
 
@@ -23,9 +23,9 @@ async function fetchPosts() {
             
             <div class="comments-section">
                 <h4>Comments</h4>
-                ${post.comments.length > 0 
+                ${post.comments && post.comments.length > 0 
                     ? post.comments.map(c => `<p><b>${c.username}</b>: ${c.body}</p>`).join('') 
-                    : '<p>No comments yet. Be the first!</p>'}
+                    : '<p style="opacity: 0.5;">No comments yet.</p>'}
                 
                 <form onsubmit="addComment(event, '${post.id}')">
                     <input type="text" placeholder="Username" id="user-${post.id}" required>
@@ -44,16 +44,15 @@ async function addComment(e, postId) {
     const email = document.getElementById(`email-${postId}`).value;
     const body = document.getElementById(`msg-${postId}`).value;
 
-    const { error } = await db
+    const { error } = await sb
         .from('comments')
         .insert([{ post_id: postId, username, email, body }]);
 
     if (error) {
-        alert("Error posting comment: " + error.message);
+        alert("Oops! " + error.message);
     } else {
-        location.reload(); // Refresh to see the new comment
+        location.reload(); 
     }
 }
 
-// Start the app
 fetchPosts();

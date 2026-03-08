@@ -1,11 +1,11 @@
 const supabaseUrl = 'https://ytyafrywokjliplflcmt.supabase.co';
 const supabaseKey = 'sb_publishable_qCgSZovSd-bO6CYpOPk_vg_p0xc92PZ';
 
-// Renamed to 'sb' to avoid the global 'supabase' collision
-const sb = supabase.createClient(supabaseUrl, supabaseKey);
+// CHANGE: We use 'sbClient' here so it doesn't clash with the library's 'supabase'
+const sbClient = supabase.createClient(supabaseUrl, supabaseKey);
 
 async function fetchPosts() {
-    const { data: posts, error } = await sb
+    const { data: posts, error } = await sbClient
         .from('posts')
         .select('*, comments(*)')
         .order('created_at', { ascending: false });
@@ -16,6 +16,12 @@ async function fetchPosts() {
     }
 
     const container = document.getElementById('blog-posts');
+    
+    if (!posts || posts.length === 0) {
+        container.innerHTML = '<p style="color: gray;">No posts yet. Use admin.html to add one!</p>';
+        return;
+    }
+
     container.innerHTML = posts.map(post => `
         <div class="post">
             <h2>${post.title}</h2>
@@ -44,12 +50,12 @@ async function addComment(e, postId) {
     const email = document.getElementById(`email-${postId}`).value;
     const body = document.getElementById(`msg-${postId}`).value;
 
-    const { error } = await sb
+    const { error } = await sbClient
         .from('comments')
         .insert([{ post_id: postId, username, email, body }]);
 
     if (error) {
-        alert("Oops! " + error.message);
+        alert("Error: " + error.message);
     } else {
         location.reload(); 
     }

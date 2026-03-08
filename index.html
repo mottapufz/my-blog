@@ -2,59 +2,57 @@
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>mottapufz blog</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
         body {
             background-color: #000;
-            color: #fff;
-            font-family: 'Courier New', Courier, monospace; 
-            padding: 1.5rem; /* Base padding for mobile */
+            color: #00ff41; /* "Matrix Green" or keep #fff for clean white */
+            font-family: 'JetBrains Mono', monospace; 
+            padding: 1.5rem;
             line-height: 1.6;
-            max-width: 800px; /* Stops it from stretching infinitely on desktop */
-            margin: 0 auto; /* Centers the whole blog column */
+            max-width: 800px;
+            margin: 0 auto;
         }
-        
+
+        /* Makes titles look bold and techy */
+        h1, h2 {
+            border-left: 4px solid #fff;
+            padding-left: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
         .post { 
-            border-bottom: 1px solid #333; 
+            border-bottom: 1px solid #222; 
             padding-bottom: 2rem; 
             margin-bottom: 2rem; 
         }
 
-        /* Form Fields: Padded, box-sized, and restricted in width */
+        /* Keep your inputs consistent */
         input, textarea {
-            background: #111;
-            border: 1px solid #fff;
+            background: #0a0a0a;
+            border: 1px solid #333;
             color: #fff;
-            font-family: inherit;
-            display: block;
-            margin-bottom: 15px;
-            padding: 12px; /* Added padding inside the text boxes */
+            font-family: 'JetBrains Mono', monospace;
+            padding: 12px;
             width: 100%;
-            max-width: 350px; /* Keeps inputs from being full screen */
-            box-sizing: border-box; /* Ensures padding doesn't break the width */
-        }
-
-        /* Let the comment box be slightly wider than the inputs */
-        textarea {
-            max-width: 500px; 
-            resize: vertical; /* Lets users drag to make it taller, but not wider */
+            max-width: 100%; /* Better for mobile */
+            box-sizing: border-box;
         }
 
         button {
-            background: #fff;
+            background: #00ff41; /* Tech green button */
             color: #000;
             border: none;
             padding: 10px 20px;
             cursor: pointer;
             font-weight: bold;
-        }
-
-        /* Adds extra padding on larger screens */
-        @media (min-width: 600px) {
-            body { padding: 3rem; }
+            font-family: inherit;
         }
     </style>
 </head>
+    
 <body>
     <h1>mottapufz blog</h1>
     <div id="blog-posts"></div>

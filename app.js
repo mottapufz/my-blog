@@ -1,7 +1,6 @@
 const supabaseUrl = 'https://ytyafrywokjliplflcmt.supabase.co';
 const supabaseKey = 'sb_publishable_qCgSZovSd-bO6CYpOPk_vg_p0xc92PZ';
 
-// CHANGE: We use 'sbClient' here so it doesn't clash with the library's 'supabase'
 const sbClient = supabase.createClient(supabaseUrl, supabaseKey);
 
 async function fetchPosts() {
@@ -25,7 +24,7 @@ async function fetchPosts() {
     container.innerHTML = posts.map(post => `
         <div class="post">
             <h2>${post.title}</h2>
-            <p>${post.content}</p>
+            <p style="white-space: pre-wrap;">${post.content}</p>
             
             <div class="comments-section">
                 <h4>Comments</h4>

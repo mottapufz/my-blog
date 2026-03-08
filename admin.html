@@ -21,17 +21,17 @@
     </form>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
     <script>
         const supabaseUrl = 'https://ytyafrywokjliplflcmt.supabase.co';
         const supabaseKey = 'sb_publishable_qCgSZovSd-bO6CYpOPk_vg_p0xc92PZ';
+        
         const sbAdmin = supabase.createClient(supabaseUrl, supabaseKey);
 
         document.getElementById('post-form').onsubmit = async (e) => {
             e.preventDefault();
             const title = document.getElementById('title').value;
             const content = document.getElementById('content').value;
-            
-            // NEW: Grab the password the user typed into the box
             const typedPassword = document.getElementById('admin-password').value;
 
             const { error } = await sbAdmin
@@ -39,15 +39,16 @@
                 .insert([{ 
                     title: title, 
                     content: content, 
-                    secret_key: typedPassword // Supabase will check if this matches your RLS policy!
+                    secret_key: typedPassword 
                 }]);
 
             if (error) {
-                // If the password is wrong, Supabase blocks it and shows an error
-                alert('Posting Failed: Make sure your password is correct. ' + error.message);
+                alert('Posting Failed: ' + error.message);
             } else {
                 alert('Published successfully!');
-                window.location.href = '../index.html'; // Go back to the homepage
+                // If this file is inside an 'admin' folder, use '../index.html'
+                // If it is in the same folder as index.html, use 'index.html'
+                window.location.href = 'index.html'; 
             }
         };
     </script>
